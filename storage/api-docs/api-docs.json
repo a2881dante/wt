@@ -1,0 +1,108 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Wezom Test API",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/zip-code/{zipCode}": {
+            "get": {
+                "tags": [
+                    "ZipApi"
+                ],
+                "summary": "Получить полную информацию про город по zip-коду",
+                "description": "Получить полную информацию про город по zip-коду",
+                "operationId": "zipCodes",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/zipCode"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/cities/{partname}": {
+            "get": {
+                "tags": [
+                    "ZipApi"
+                ],
+                "summary": "Получить список городов по частичному названию",
+                "description": "Получить список городов по частичному названию",
+                "operationId": "cities",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/partname"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/data/update-zips": {
+            "post": {
+                "tags": [
+                    "DB"
+                ],
+                "summary": "Обновление данных из cvs-файла",
+                "description": "Обновление данных из cvs-файла",
+                "operationId": "updateZips",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/CsvFile"
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "parameters": {
+            "zipCode": {
+                "name": "zipCode",
+                "in": "path",
+                "description": "Полный zip-код",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "partname": {
+                "name": "partname",
+                "in": "path",
+                "description": "Полное или частичное наименования города",
+                "schema": {
+                    "type": "string"
+                }
+            }
+        },
+        "requestBodies": {
+            "CsvFile": {
+                "description": "Файл формата .csv для обновления данных в БД",
+                "required": true,
+                "content": {
+                    "multipart/form-data": {
+                        "schema": {
+                            "properties": {
+                                "csv_file": {
+                                    "type": "file"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}
